@@ -1,46 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCar, faGasPump, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-export default function FilterBar({
-  onFilter,
-}: {
-  onFilter: (filters: { brand: string; fuel: string }) => void;
-}) {
+export default function FilterBar({ onFilter }: { onFilter: (filters: { brand: string; fuel: string }) => void }) {
   const [brand, setBrand] = useState("");
   const [fuel, setFuel] = useState("");
-
-  // Live filtering (debounced)
-  useEffect(() => {
-    const delayDebounce = setTimeout(() => {
-      onFilter({ brand, fuel });
-    }, 300);
-
-    return () => clearTimeout(delayDebounce);
-  }, [brand, fuel]);
 
   const handleSearch = () => {
     onFilter({ brand, fuel });
   };
 
   return (
-    <div className="flex flex-wrap gap-4 items-end px-6">
-      <div>
-        <label className="block text-sm text-gray-300 mb-1">Brand</label>
+    <div className="flex flex-wrap gap-6 items-end px-6 py-6 rounded-2xl bg-black shadow-lg border border-[#00FF88] animate-fadeIn">
+      <div className="w-full sm:w-1/3">
+        <label className="block text-sm text-[#00FF88] mb-1 flex items-center gap-2">
+          <FontAwesomeIcon icon={faCar} />
+          Brand
+        </label>
         <input
           type="text"
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
           placeholder="e.g. Tesla"
-          className="border border-gray-400 px-2 py-1 rounded w-40 text-black"
+          className="w-full px-4 py-2 rounded-lg bg-black text-white border-2 border-[#00FF88] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00FF88] transition"
         />
       </div>
-      <div>
-        <label className="block text-sm text-gray-300 mb-1">Fuel Type</label>
+
+      <div className="w-full sm:w-1/3">
+        <label className="block text-sm text-[#00FF88] mb-1 flex items-center gap-2">
+          <FontAwesomeIcon icon={faGasPump} />
+          Fuel Type
+        </label>
         <select
           value={fuel}
           onChange={(e) => setFuel(e.target.value)}
-          className="border border-gray-400 px-2 py-1 rounded w-40 text-black"
+          className="w-full px-4 py-2 rounded-lg bg-black text-white border-2 border-[#00FF88] focus:outline-none focus:ring-2 focus:ring-[#00FF88] transition"
         >
           <option value="">All</option>
           <option value="Petrol">Petrol</option>
@@ -48,12 +44,16 @@ export default function FilterBar({
           <option value="Electric">Electric</option>
         </select>
       </div>
-      <button
-        onClick={handleSearch}
-        className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600 transition"
-      >
-        Search
-      </button>
+
+      <div className="w-full sm:w-auto">
+        <button
+          onClick={handleSearch}
+          className="bg-[#00FF88] text-black px-6 py-2 rounded-lg font-semibold hover:bg-white hover:text-black transition duration-300 shadow-green-500/50 hover:shadow-md flex items-center gap-2"
+        >
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          Search
+        </button>
+      </div>
     </div>
   );
 }

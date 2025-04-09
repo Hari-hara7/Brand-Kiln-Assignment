@@ -23,7 +23,7 @@ export default function HomePage() {
     setWishlist(stored);
   }, []);
 
-  // 🔥 Live filter function
+
   const handleFilter = ({ brand, fuel }: { brand: string; fuel: string }) => {
     let result = [...cars];
 

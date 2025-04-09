@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Header from "./Header"; // ✅ Add the Header import
 import CarCard from "./CarCard";
 import { cars } from "@/lib/data";
 
@@ -16,17 +17,20 @@ export default function Wishlist() {
   }, []);
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Your Wishlist</h2>
-      {wishlistCars.length === 0 ? (
-        <p className="text-muted-foreground">No cars in wishlist yet.</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {wishlistCars.map((car) => (
-            <CarCard key={car.id} car={car} />
-          ))}
-        </div>
-      )}
+    <div className="space-y-6">
+      <Header /> {/* ✅ Header added */}
+      <div className="p-6">
+        <h2 className="text-2xl font-bold mb-4">Your Wishlist</h2>
+        {wishlistCars.length === 0 ? (
+          <p className="text-muted-foreground">No cars in wishlist yet.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {wishlistCars.map((car) => (
+              <CarCard key={car.id} car={car} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
